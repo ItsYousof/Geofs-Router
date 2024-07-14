@@ -70,4 +70,17 @@ function displayOutput(formattedNodes) {
     div.className = 'output';
     div.innerHTML = JSON.stringify(formattedNodes, null, 2);
     document.getElementById('outputs').appendChild(div);
+
+    const button = document.createElement('button');
+    button.innerHTML = 'Download JSON';
+    button.onclick = () => {
+        const json = JSON.stringify(formattedNodes, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'output.json';
+        link.click();
+    };
+    document.getElementById('outputs').appendChild(button);
 }
