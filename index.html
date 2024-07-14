@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Plan Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        #outputs {
+            font-family: monospace;
+        }
+
+        input {
+            margin: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            width: 200px;
+            outline: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 600;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 15px;
+            border: 0;
+            font-size: 18px;
+            width: 220px;
+            outline: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: #ccf19b;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #aeda75;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            margin: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 600;
+        }
+
+        #outputs {
+            margin: 10px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        footer {
+            text-align: right;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Flight Plan Generator</h2>
+    <input type="text" name="" id="origin">
+    <input type="text" name="" id="destination">
+    <button onclick="generate()">Generate</button>
+
+    <div id="outputs"></div>
+    <footer>
+        <p>Data provided by <a href="https://flightplandatabase.com">Flight Plan Database</a></p>
+        <p>Project by <a href="https://github.com/ItsYousof">ItsYousof</a></p>
+        <p>This project may only be used for it's intended purpose ONLY</p>
+
+
+        <a href="https://flightplandatabase.com"><img src="https://static.flightplandatabase.com/images/data-banner/light.min.png" alt="Data from the Flight Plan Database"></a>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
