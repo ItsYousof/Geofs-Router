@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Plan Generator</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="icon" href="images/logo.png">
+    <link rel="stylesheet" href="css/map.css">
+</head>
+<body>
+    <div class="top-nav">
+        <a href="#" onclick="generate()" class="btn">Generate Route</a>
+        <a href="#" onclick="downloadStored()" class="btn">Downloads Stored Routes</a>
+        <a href="#" onclick="startGeofs()" class="btn">Lunch Selected Route</a>
+        <a href="index.html" class="btn active">View GeoFS Map</a>
+    </div>
+
+    <iframe src="https://www.geo-fs.com/pages/map.php" frameborder="0"></iframe>
+    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/map.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+var map = L.map('map2').setView([51.505, -0.09], 5);
+    
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+    
+        function markerSetter(coords, markerType) {
+            if (markerType === 'first') {
+                if (firstMarker) {
+                    map.removeLayer(firstMarker);
+                }
+                firstMarker = L.marker(coords).addTo(map);
+            } else if (markerType === 'second') {
+                if (secondMarker) {
+                    map.removeLayer(secondMarker);
+                }
+                secondMarker = L.marker(coords).addTo(map);
+            }
+            checker += 1;
+            drawPolylines();
+        }
+    
+        function handleInput(element, markerSetter, markerType) {
+            element.addEventListener('input', function() {
+                let value = element.value.toUpperCase();
+    
+                fetch("https://raw.githubusercontent.com/ItsYousof/GeoFS-Flight-Menu/main/data/airports.json")
+                    .then(response => response.json())
+                    .then(data => {
+                        const airports = data;
+    
+                        if (value.length === 4) {
+                            if (value in airports) {
+                                var [lat, lon] = airports[value];
+                                markerSetter([lat, lon], markerType);
+                                map.panTo([lat, lon]);
+                            } else {
+                                console.log("Not found");
+                            }
+                        } else {
+                            console.log(value);
+                        }
+                    })
+                    .catch(error => console.error(error));
+            });
+        }
+    
+        function drawPolylines() {
+            // Remove the old main polyline if it exists
+            if (mainPolyline) {
+                map.removeLayer(mainPolyline);
+            }
+    
+            // Draw the main polyline between the first and second markers if both exist
+            if (checker >= 2 && firstMarker && secondMarker) {
+                let latlngs = [firstMarker.getLatLng(), secondMarker.getLatLng()];
+                mainPolyline = L.polyline(latlngs, { color: 'red' }).addTo(map);
+            }
+    
+            // Remove the old extra polyline if it exists
+            if (extraPolyline) {
+                map.removeLayer(extraPolyline);
+            }
+    
+            // Draw the extra polyline connecting all extraMarkers
+            if (extraMarkers.length > 0) {
+                let latlngs = [firstMarker.getLatLng(), ...extraMarkers, secondMarker.getLatLng()];
+                extraPolyline = L.polyline(latlngs, { color: 'blue' }).addTo(map);
+
+                route = latlngs;
+            }
+        }
+    
+        handleInput(DPT, markerSetter, 'first');
+        handleInput(DST, markerSetter, 'second');
+    
+        map.on('contextmenu', function(e) {
+            var latlng = e.latlng;
+    
+            // Create and show the popup
+            L.popup()
+                .setLatLng(latlng)
+                .setContent('<button id="addMarker"><i class="fas fa-plus"></i> Waypoint</button>')
+                .openOn(map);
+    
+            // Add event listener for the button in the popup
+            map.once('popupopen', function() {
+                document.getElementById('addMarker').addEventListener('click', function() {
+                    // Add marker to the map
+                    let marker = L.marker(latlng).addTo(map);
+    
+                    // Store the latitude and longitude in extraMarkers
+                    extraMarkers.push([latlng.lat, latlng.lng]);
+    
+                    // Redraw polylines
+                    drawPolylines();
+    
+                    // Close the popup
+                    map.closePopup();
+                });
+            });
+        });
+
+
+<button onclick="generate()" id="generate"> <i class="fas fa-plane-departure" style="margin-right: 0.5rem;"></i>Generate</button>

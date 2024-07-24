@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Plan Generator</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="icon" href="images/logo.png">
+</head>
+<body>
+    <div class="top-nav">
+        <a href="#" onclick="generate()" class="btn">Generate Route</a>
+        <a href="#" onclick="downloadStored()" class="btn">Downloads Stored Routes</a>
+        <a href="#" onclick="startGeofs()" class="btn">Lunch Selected Route</a>
+        <a href="geofs-map.html" class="btn">View GeoFS Map</a>
+        <a href="#" class="btn" onclick="displayCredits()">Credits</a>
+    </div>
+    <main class="conatiner">
+        <div class="main-form">
+            <div class="ui-airports-form">
+                <div class="title-ui">
+                    <h3>Flight Info</h3>
+                </div>
+                <input type="text" name="" id="origin" placeholder="Origin ICAO" maxlength="4" >
+                <input type="text" name="" id="destination" placeholder="Destination ICAO" maxlength="4">
+                <input type="text" name="" id="aircraft" placeholder="Aircraft" maxlength="5">
+                <input type="date" name="" id="date" placeholder="Departure Date">
+            </div>
+            <div class="ui-route">
+                <h3>Route</h3>
+                <div class="route-output">
+                    <span>Current Route:</span>
+                    <textarea id="route" readonly></textarea>
+                    <span style="margin-top: 0.5rem;">Route is useable on GeoFS.</span>
+                </div>
+            </div>
+
+            <div class="ui-analyze-route ui">
+                <h3>Route Analysis</h3>
+                <div class="analyze-output">
+                    <span>About:</span>
+                    <textarea id="analyze" readonly></textarea>
+                    <span style="margin-top: 0.5rem;">Date might not match in flight simulation.</span>
+                </div>
+            </div>
+
+            <div class="route-formats ui">
+                <h3>Download</h3>
+                <div class="download-formats" id="download">
+                    <span>If nothing is here that means you have not generated a route yet.</span>
+                </div>
+            </div>
+
+            <div class="other-routes ui">
+                <h3>Other Routes</h3>
+                <div id="routes-container">
+                    <div class="route">
+                        <span>feature coming soon!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="map"></div>
+        <div id="map2">
+            <div id="stored-routes"></div>
+        </div>
+    </main>
+    <form action="" id="switch_form">
+        <input type="radio" name="rdo" id="yes" checked />
+        <input type="radio" name="rdo" id="no"/>
+        <div class="switch">
+          <label for="yes">Map</label>
+          <label for="no">Plans</label>
+          <span></span>
+        </div>
+    </form>
+    <section class="credits-popup" id="popup">
+        <h3>Credits</h3>
+        <p>Flight Data from <em><a href="https://www.flightplandatabase.com/">Flight Plan Database</a></em></p>
+        <p>Map with Leaflet and OpenStreetMap</p>
+        <p>Icons from fontawesome</p>
+        <p>Player map from <em><a href="https://www.geo-fs.com/">GeoFS</a></em></p>
+        <p>NOTE: The routes are only made for FLIGHT SIMULATION ONLY.</p>
+        <p>Thanks for using. Made by <em><a href="https://github.com/ItsYousof">Yousof</a></em></p>
+    </section>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
